@@ -12,30 +12,19 @@ const memberStore = {
     { id: 5, nama: "Rizky Hamdani",   email: "rizky@mail.com",  bidang: "Cybersecurity" },
   ],
 
-  // Tambah anggota baru
   add(member) {
-    const newMember = {
-      id: this.members.length + 1,
-      ...member,
-    };
+    const newMember = { id: this.members.length + 1, ...member };
     this.members.push(newMember);
     this._persist();
     return newMember;
   },
 
-  // Ambil semua anggota
-  getAll() {
-    return [...this.members];
-  },
+  getAll() { return [...this.members]; },
 
-  // Simpan ke sessionStorage agar data bertahan antar halaman
   _persist() {
-    try {
-      sessionStorage.setItem("tc_members", JSON.stringify(this.members));
-    } catch (_) {}
+    try { sessionStorage.setItem("tc_members", JSON.stringify(this.members)); } catch (_) {}
   },
 
-  // Muat dari sessionStorage saat halaman dibuka
   _load() {
     try {
       const saved = sessionStorage.getItem("tc_members");
@@ -44,7 +33,6 @@ const memberStore = {
   },
 };
 
-// Muat data tersimpan saat script dijalankan
 memberStore._load();
 
 // =============================================
@@ -65,18 +53,15 @@ function renderMemberTable() {
   }
 
   tbody.innerHTML = members
-    .map(
-      (m) => `
+    .map(m => `
       <tr>
         <td>${m.id}</td>
         <td>${escapeHtml(m.nama)}</td>
         <td>${escapeHtml(m.email)}</td>
         <td><span class="badge">${escapeHtml(m.bidang)}</span></td>
-      </tr>`
-    )
+      </tr>`)
     .join("");
 
-  // Update counter
   const counter = document.getElementById("member-count");
   if (counter) counter.textContent = members.length;
 }
@@ -93,37 +78,30 @@ function initForm() {
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const nama  = document.getElementById("nama").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const nama   = document.getElementById("nama").value.trim();
+    const email  = document.getElementById("email").value.trim();
     const bidang = document.getElementById("bidang").value;
 
-    // --- Validasi manual ---
     const errors = validateForm({ nama, email, bidang });
     if (errors.length > 0) {
       showFormError(errors.join("\n"));
       return;
     }
 
-    // --- Simpan ke store ---
     const newMember = memberStore.add({ nama, email, bidang });
-
-    // --- Tampilkan hasil di bawah form ---
     showFormSuccess(newMember, resultBox);
-
-    // --- Reset form ---
     form.reset();
     clearFieldErrors();
   });
 
-  // Real-time validation feedback per field
   attachRealTimeValidation();
 }
 
 function validateForm({ nama, email, bidang }) {
   const errors = [];
-  if (!nama || nama.length < 3)          errors.push("Nama harus minimal 3 karakter.");
-  if (!isValidEmail(email))              errors.push("Format email tidak valid.");
-  if (!bidang)                            errors.push("Bidang minat harus dipilih.");
+  if (!nama || nama.length < 3)  errors.push("Nama harus minimal 3 karakter.");
+  if (!isValidEmail(email))       errors.push("Format email tidak valid.");
+  if (!bidang)                    errors.push("Bidang minat harus dipilih.");
   return errors;
 }
 
@@ -154,31 +132,31 @@ function showFormError(message) {
 
 function attachRealTimeValidation() {
   const fields = ["nama", "email", "bidang"];
-  fields.forEach((id) => {
+  fields.forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
-    el.addEventListener("blur", () => validateField(id, el.value));
+    el.addEventListener("blur",  () => validateField(id, el.value));
     el.addEventListener("input", () => clearFieldError(id));
   });
 }
 
 function validateField(id, value) {
   let msg = "";
-  if (id === "nama"  && value.trim().length < 3) msg = "Minimal 3 karakter.";
-  if (id === "email" && !isValidEmail(value.trim())) msg = "Format email tidak valid.";
+  if (id === "nama"   && value.trim().length < 3) msg = "Minimal 3 karakter.";
+  if (id === "email"  && !isValidEmail(value.trim())) msg = "Format email tidak valid.";
   if (id === "bidang" && !value) msg = "Pilih bidang minat.";
   if (msg) setFieldError(id, msg);
 }
 
 function setFieldError(id, msg) {
-  let errEl = document.getElementById(`${id}-error`);
+  const errEl = document.getElementById(`${id}-error`);
   if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
   const field = document.getElementById(id);
   if (field) field.classList.add("field-error");
 }
 
 function clearFieldError(id) {
-  let errEl = document.getElementById(`${id}-error`);
+  const errEl = document.getElementById(`${id}-error`);
   if (errEl) { errEl.textContent = ""; errEl.style.display = "none"; }
   const field = document.getElementById(id);
   if (field) field.classList.remove("field-error");
@@ -189,14 +167,14 @@ function clearFieldErrors() {
 }
 
 // =============================================
-// HALAMAN MULTIMEDIA — interaksi audio & gambar
+// HALAMAN MULTIMEDIA — galeri & audio playlist
 // =============================================
 const gallery = {
   images: [
-    { src: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800", alt: "Tim menggunakan laptop bersama" },
-    { src: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800", alt: "Coding di layar" },
-    { src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800", alt: "Workshop komunitas teknologi" },
-    { src: "https://images.unsplash.com/photo-1542626991-cbc4e32524cc?w=800", alt: "Pertemuan komunitas" },
+    { src: "foto/default1.png", alt: "Foto Komunitas 1" },
+    { src: "foto/default2.png", alt: "Foto Komunitas 2" },
+    { src: "foto/default3.png", alt: "Foto Komunitas 3" },
+    { src: "foto/default4.png", alt: "Foto Komunitas 4" },
   ],
   currentIndex: 0,
 
@@ -211,10 +189,11 @@ const gallery = {
   },
 
   _render() {
-    const img = document.getElementById("gallery-img");
+    const img     = document.getElementById("gallery-img");
     const caption = document.getElementById("img-caption");
     const counter = document.getElementById("img-counter");
     if (!img) return;
+
     const current = this.images[this.currentIndex];
     img.classList.add("fade-out");
     setTimeout(() => {
@@ -233,35 +212,79 @@ const gallery = {
 };
 
 function initMultimedia() {
-  const audioEl = document.getElementById("community-audio");
-  const playBtn  = document.getElementById("btn-play");
-  const stopBtn  = document.getElementById("btn-stop");
-  const statusEl = document.getElementById("audio-status");
-
-  // Inisialisasi gallery gambar
+  // Inisialisasi galeri
   gallery._render();
-
-  // Tombol navigasi gambar
   document.getElementById("btn-prev")?.addEventListener("click", () => gallery.prev());
   document.getElementById("btn-next")?.addEventListener("click", () => gallery.next());
   document.getElementById("btn-info")?.addEventListener("click", () => gallery.showInfo());
 
-  // Kontrol audio
-  if (!audioEl) return;
+  // Audio — custom player
+  const audioEl     = document.getElementById("community-audio");
+  const playBtn     = document.getElementById("btn-play-pause");
+  const nextBtn     = document.getElementById("btn-next-track");
+  const infoEl      = document.getElementById("audio-track-info");
+  const progressFill= document.getElementById("progress-fill");
+  const progressWrap= document.getElementById("progress-wrap");
+  const timeCurrent = document.getElementById("time-current");
+  const timeDuration= document.getElementById("time-duration");
+  const volumeSlider= document.getElementById("volume-slider");
+
+  const tracks = [
+    "audio/default1.mp3","audio/default2.mp3","audio/default3.mp3",
+    "audio/default4.mp3","audio/default5.mp3","audio/default6.mp3","audio/default7.mp3",
+  ];
+  let currentTrack = 0;
+
+  function fmtTime(s) {
+    if (isNaN(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const sec = String(Math.floor(s % 60)).padStart(2, "0");
+    return `${m}:${sec}`;
+  }
+
+  function loadTrack(index, autoplay = true) {
+    currentTrack = index;
+    audioEl.src = tracks[currentTrack];
+    audioEl.load();
+    if (autoplay) audioEl.play();
+    if (infoEl) infoEl.textContent = `Track ${currentTrack + 1} / ${tracks.length}`;
+  }
 
   playBtn?.addEventListener("click", () => {
-    audioEl.play();
-    if (statusEl) statusEl.textContent = "▶ Sedang diputar...";
+    if (audioEl.paused) { audioEl.play(); }
+    else { audioEl.pause(); }
   });
 
-  stopBtn?.addEventListener("click", () => {
-    audioEl.pause();
-    audioEl.currentTime = 0;
-    if (statusEl) statusEl.textContent = "⏹ Audio dihentikan.";
+  nextBtn?.addEventListener("click", () => {
+    loadTrack((currentTrack + 1) % tracks.length);
   });
 
-  audioEl.addEventListener("ended", () => {
-    if (statusEl) statusEl.textContent = "✅ Audio selesai diputar.";
+  audioEl?.addEventListener("play",  () => { if (playBtn) playBtn.textContent = "⏸"; });
+  audioEl?.addEventListener("pause", () => { if (playBtn) playBtn.textContent = "▶"; });
+
+  audioEl?.addEventListener("timeupdate", () => {
+    const pct = audioEl.duration ? (audioEl.currentTime / audioEl.duration) * 100 : 0;
+    if (progressFill) progressFill.style.width = pct + "%";
+    if (timeCurrent)  timeCurrent.textContent  = fmtTime(audioEl.currentTime);
+  });
+
+  audioEl?.addEventListener("loadedmetadata", () => {
+    if (timeDuration) timeDuration.textContent = fmtTime(audioEl.duration);
+  });
+
+  audioEl?.addEventListener("ended", () => {
+    if (currentTrack < tracks.length - 1) loadTrack(currentTrack + 1);
+    else { if (playBtn) playBtn.textContent = "▶"; }
+  });
+
+  progressWrap?.addEventListener("click", (e) => {
+    const rect = progressWrap.getBoundingClientRect();
+    const pct  = (e.clientX - rect.left) / rect.width;
+    if (audioEl.duration) audioEl.currentTime = pct * audioEl.duration;
+  });
+
+  volumeSlider?.addEventListener("input", () => {
+    audioEl.volume = volumeSlider.value;
   });
 }
 
@@ -285,13 +308,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (page === "form")       initForm();
   if (page === "multimedia") initMultimedia();
 
-  // Tandai nav link aktif
   highlightActiveNav();
 });
 
 function highlightActiveNav() {
   const links = document.querySelectorAll("nav a");
-  links.forEach((link) => {
+  links.forEach(link => {
     if (link.href === window.location.href) {
       link.classList.add("active");
     }

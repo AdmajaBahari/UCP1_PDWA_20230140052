@@ -45,38 +45,41 @@
 
                             <!-- NAMA -->
                              <div class="form-group">
-                                <label for="name">Nama Lengkap <span style="color: var(--danger);">*</span></label>
+                                <label for="name">Nama Lengkap <span style="color: var(--danger);">:</span></label>
                                 <input type="text" id="name" name="name" placeholder="Contoh: Admaja Bahari" autocomplete="name" />
                                 <div class="field-error-message" id="name-error"></div>
                     </div>
 
-                    <!-- EMAIL -->
-                    <div class="form-group">
-                        <label for="email">Alamat Email <span style="color:var(--danger)">*</span></label>
-                        <input type="email" id="email" name="email" placeholder="Contoh: admaja@techcommunity.id" autocomplete="email" />
-                        <div class="field-error-message" id="email-error"></div>
-                        </div>
+                             <!-- EMAIL -->
+                            <div class="form-group">
+                                <label for="email">Alamat Email <span style="color:var(--danger)">:</span></label>
+                                <input type="email" id="email" name="email" placeholder="Contoh: admaja@techcommunity.ac.id" autocomplete="email" />
+                                <div class="field-error-message" id="email-error"></div>
+                            </div>
 
                         <!-- BIDANG MINAT -->
                         <div class="form-group">
-                            <label for="bidang" name="bidang">
+                            <label for="bidang">Bidang Minat <span style="color:var(--danger)">:</span></label>
+                            <select id="bidang" name="bidang">
+                                <option value="">-- Pilih Bidang --</option>
                                 <option value="Web Development">Web Development</option>
                                 <option value="Data Science">Data Science</option>
-                                <option value="Matchine Learning">Machine Learning</option>
+                                <option value="Machine Learning">Machine Learning</option>
                                 <option value="Cybersecurity">Cybersecurity</option>
                                 <option value="DevOps">DevOps</option>
                                 <option value="Game Development">Game Development</option>
-                                <option value="lainnya">Lainnya</option></select>
-                                <div class="field-error-message" id="bidang-error"></div>
-                            </div>
-
-                            <!-- Action -->
-                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">Daftar</button>
-                                <button type="reset" class="btn btn-outline">Reset Form</button>
-                                </div>
-
-                                </form>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                            <div class="field-error-message" id="bidang-error"></div>
+                        </div>
+ 
+                        <!-- Action -->
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Daftar</button>
+                            <button type="reset" class="btn btn-outline">Reset Form</button>
+                        </div>
+ 
+                    </form>
 
                             <!-- Hasil submit tampilkan di sini -->
                             <div id="form-result" class="result-box"></div>
