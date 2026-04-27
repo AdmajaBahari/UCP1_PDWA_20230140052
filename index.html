@@ -1,33 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Community</title>
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
-    <h1>Tech Community</h1>
-    <p>Website ini juga akan digunakan untuk mendata anggota
-baru serta menampilkan konten multimedia agar terlihat lebih menarik.</p>
-    <p><source src="gallery.html" type=""></p>
-    <p>Tech Community Anggota :</p>
-    <table>
-        <tr>
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Minat</th>
-        </tr>
-        <tr>
-            <td>ADMAJA BAHARI</td>
-            <td>admaja</td>
-            <td>bahari@gmail.com</td>
-            <td>Reading</td>
-        </tr>
-    </table>
-<style>
+<body data-page="home">
 
-</style>
+    <!-- HEADER / NAV  -->
+     <header>
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">:p <span>Tech</span>Community</div>
+                <nav>
+                    <a href="./index.html">Home</a>
+                    <a href="./form.html">Form</a>
+                    <a href="./gallery.html">Multimedia</a>
+                </nav>
+            </div>
+        </div>
+     </header>
 
-</body>
+     <main>
+        <div class="container">
+
+            <!-- HERO -->
+             <section class="hero">
+                <div class="hero-eyebrow">// Bergabung bersama kami</div>
+                <h1>Komunitas <span>Teknologi</span><br/>untuk Semua</h1>
+                <p>Website ini juga akan digunakan untuk mendata anggota
+baru serta menampilkan konten multimedia agar terlihat lebih menarik.
+                </p>
+                <div class="hero-actions">
+                    <a href="./form.html" class="btn btn-primary">Daftar Sekarang</a>
+                    <a href="./gallery.html" class="btn btn-outline">Lihat Multimedia</a>
+                </div>
+             </section>
+
+             <!-- STATS -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-number" id="member-count">5</div>
+                    <div class="stat-label">Anggota</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Bidang</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2026</div>
+                    <div class="stat-label">Tahun Berdiri</div>
+                </div>
+            </div>
+
+            <!-- TABEL ANGGOTA -->
+             <div class="section-header">
+                <h2>Daftar Anggota</h2>
+
+                <a href="./form.html" class="btn btn-outline">Tambah Anggota</a>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Minat</th>
+                            </tr>
+                            </thead>
+                            <tbody id="member-tbody">
+                                <!-- Diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </main>
+
+        <footer>
+            <div class="container">
+                <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
+            </div>
+        </footer>
+
+        <script src="/js/script.js"></script>
+    </body>
 </html>

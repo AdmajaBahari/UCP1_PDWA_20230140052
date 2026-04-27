@@ -1,14 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Multimedia - Tech Community</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+    .page-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
+    .page-subtitle { color: var(--text-muted); margin-bottom: 36px; }
+    .media-section { margin-bottom: 36px; }
+    .media-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-family: 'Fira Code', monospace;
+    }
+    .media-section h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 14px; }
+    #img-counter {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0 6px;
+    }
+    </style>
 </head>
-<body>
-    <h1>GALLERI MULTIMEDIA</h1>
-    <img><source src="enam.jpg" type="enam/jpg"></img>
-    <audio><source src="default.mp3 type=""</audio>
+<body data-page="multimedia">
+
+    <header>
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">:p <span>Tech</span>
+                    <nav>
+                        <a href="./index.html">Home</a>
+                        <a href="./form.html">Form</a>
+                        <a href="./gallery.html">Multimedia</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            
+            <h1 class="page-title">Multimedia</h1>
+            <p class="page-subtitle">Konten visual dan audio dari Tech Community.</p>
+
+            <!-- 1. GALERI GAMBAR -->
+             <div class="media-section">
+                <div class="media-label">// 01. Image Gallery</div>
+
+                <h2>Galeri Foto</h2>
+                <div id="gallery-img" src="" alt="Gambar Komunitas" loading="lazy" />
+                <div id="img-caption">-</div>
+                </div> class="<gallery-controls">
+                <button id="btn-prev" class="btn btn-outline">← Previous</button>
+                <span id="img-counter">1 / 4</span>
+                <button id="btn-next" class="btn btn-primary">Next →</button>
+                <button id="btn-info" class="btn btn-outline">Info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. VIDEO YOUTUBE (iframe) -->
+         <div class="media-section">
+            <div class="media-label">// 02. Video</div>
+            <h2>Video Komunitas</h2>
+            <div class="video-wrap">
+                <iframe
+                    src="https://youtu.be/N4PQ-vqNumc?si=fL_UwUMh3GXtShoW"
+                    title="Video Tech Community"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p style="font-size:0.8rem; color: var(--text-muted); margin-top: 8px;">Video dokumentasi kegiatan Tech Community.</p>
+            </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
+        </div>
+    </footer>
+
+    <script src="/js/script.js"></script>
+    </body>
+    </html>
     
-</body>
-</html>
