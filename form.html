@@ -17,9 +17,11 @@
 </head>
 <body data-page="form">
 
+        <!-- Main Header -->
     <header>
         <div class="container">
             <div class="nav-inner">
+                        <!-- Logo Section -->
                 <img src="foto/logo/edited-photo.png" alt="Tech Community Logo" style="height: 36px; width: auto;">
                 <span>Tech</span>Community</div>
                 <nav>
@@ -31,6 +33,31 @@
         </div>
     </header>
 
+    <!-- Center Navigation Pill -->
+        <nav class="nav-pill" data-purpose="main-nav">
+            <a href="#">Home</a>
+            <a href="#" class="nav-active">Form</a>
+            <a href="#">Multimedia</a>
+        </nav>
+
+    <!-- Right Side Controls -->
+        <div class="header-controls">
+            <!-- Dark Mode Toggle -->
+            <div class="dark-toggle">
+                <div class="toggle-knob"></div>
+            </div>
+            
+            <!-- Hamburger Menu -->
+            <button class="hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+
+        <!-- Main Content -->
     <main>
         <div class="container">
             <div class="form-card">
@@ -63,7 +90,7 @@
                         <div class="form-group">
                             <label for="bidang">Bidang Minat <span style="color:var(--danger)">:</span></label>
                             <select id="bidang" name="bidang">
-                                <option value="">-- Pilih Bidang --</option>
+                                <option value="">-- pilih bidang --</option>
                                 <option value="Web Development">Web Development</option>
                                 <option value="Data Science">Data Science</option>
                                 <option value="Machine Learning">Machine Learning</option>
@@ -92,12 +119,14 @@
             </div>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
+    <!-- Footer -->
+    <footer class="footer" data-purpose="footer">
+        <div class="footer-content">
+            <p>© 2026 Tech Community · Dibangun dengan ❤️ menggunakan HTML, CSS & JavaScript</p>
         </div>
     </footer>
 
-    <script src="/Javascript/script-form.js"></script>
+    <!-- JavaScript -->
+    <script src="script-form.js"></script>
 </body>
 </html>

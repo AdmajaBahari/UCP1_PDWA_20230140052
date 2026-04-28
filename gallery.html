@@ -1,226 +1,260 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Community</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Multimedia - Tech Community</title>
     <link rel="icon" href="foto/logo/edited-photo.png" type="image/png" />
+    
+    <!-- Tailwind CSS v3 with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="CSS/style-gallery.css">
-    <style>
-    .page-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
-    .page-subtitle { color: var(--text-muted); margin-bottom: 36px; }
-    .media-section { margin-bottom: 48px; }
-    .media-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--accent);
-        font-weight: 700;
-        margin-bottom: 10px;
-        font-family: 'Fira Code', monospace;
-    }
-    .media-section h2 { font-size: 1.15rem; font-weight: 600; margin-bottom: 14px; }
-    #img-counter {
-        font-family: 'Fira Code', monospace;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        padding: 0 6px;
-    }
-
-    .custom-player {
-        background: var(--surface2);
-        border: 1px solid var(--border);
-        border-radius: var(--radius-lg);
-        padding: 16px 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    .player-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-    #audio-track-info {
-        font-family: 'Fira Code', monospace;
-        font-size: 0.8rem;
-        color: var(--text-muted);
-    }
-    .player-controls {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .player-btn {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: var(--text);
-        font-size: 1rem;
-        transition: all var(--transition);
-        flex-shrink: 0;
-    }
-    .player-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); }
-    .player-btn.play-btn {
-        background: var(--accent);
-        border-color: var(--accent);
-        color: #0d1117;
-        width: 46px;
-        height: 46px;
-        font-size: 1.1rem;
-    }
-    .player-btn.play-btn:hover { background: #79c0ff; border-color: #79c0ff; }
-    .player-progress {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .progress-bar-wrap {
-        flex: 1;
-        height: 4px;
-        background: var(--border);
-        border-radius: 2px;
-        cursor: pointer;
-        position: relative;
-    }
-    .progress-bar-fill {
-        height: 100%;
-        background: var(--accent);
-        border-radius: 2px;
-        width: 0%;
-        pointer-events: none;
-        transition: width 0.1s linear;
-    }
-    .time-label {
-        font-family: 'Fira Code', monospace;
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        min-width: 36px;
-        text-align: center;
-    }
-    .volume-wrap {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .volume-wrap input[type=range] {
-        width: 70px;
-        accent-color: var(--accent);
-        cursor: pointer;
-        padding: 0;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-    }
-    .volume-wrap input[type=range]:focus { box-shadow: none; border: none; }
-    </style>
 </head>
-<body data-page="multimedia">
-
-    <header>
-        <div class="container">
-            <div class="nav-inner">
-                <div class="logo">
-                    <img src="foto/logo/edited-photo.png" alt="Tech Community Logo" style="height: 36px; width: auto;">
-                    <span>Tech</span>Community
-                </div>
-                <nav>
-                    <a href="./index.html">Home</a>
-                    <a href="./form.html">Form</a>
-                    <a href="./gallery.html">Multimedia</a>
-                </nav>
+<body class="text-black">
+    <!-- MainHeader -->
+    <header class="flex items-center justify-between px-8 py-6 sticky top-0 bg-[#d1d5db] z-50 transition-all duration-300">
+        <div class="flex items-center gap-2" data-purpose="logo">
+            <div class="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+                <div class="w-4 h-4 border-2 border-white rotate-45"></div>
             </div>
+            <span class="font-black text-xl tracking-tighter">TechCommunity</span>
+        </div>
+        
+        <nav class="bg-black text-white px-8 py-2 rounded-full flex items-center gap-8 shadow-lg" data-purpose="navigation">
+            <a class="hover:text-gray-300 transition-colors font-medium" href="index.html">Home</a>
+            <a class="hover:text-gray-300 transition-colors font-medium" href="form.html">Form</a>
+            <a class="text-yellow-400 font-bold" href="gallery.html">Multimedia</a>
+        </nav>
+        
+        <div class="flex items-center gap-4">
+            <!-- Dark mode toggle -->
+            <button id="darkToggle" class="w-12 h-6 bg-gray-600 rounded-full relative p-1 transition-all duration-300" aria-label="Toggle dark mode">
+                <div class="w-4 h-4 bg-gray-400 rounded-full shadow-md transform transition-transform duration-300" id="darkToggleThumb"></div>
+            </button>
+            
+            <!-- Hamburger menu -->
+            <button id="mobileMenuBtn" class="w-8 h-8 bg-black rounded-full flex flex-col items-center justify-center gap-1 p-2 lg:hidden">
+                <span class="w-4 h-0.5 bg-white transition-all duration-300"></span>
+                <span class="w-4 h-0.5 bg-white transition-all duration-300"></span>
+                <span class="w-4 h-0.5 bg-white transition-all duration-300"></span>
+            </button>
         </div>
     </header>
 
-    <main>
-        <div class="container">
-
-            <h1 class="page-title">Multimedia</h1>
-            <p class="page-subtitle">Konten visual dan audio dari Tech Community.</p>
-
-            <!-- 1. GALERI GAMBAR -->
-            <div class="media-section">
-                <div class="media-label">// 01. Image Gallery</div>
-                <h2>Galeri Foto</h2>
-                <div class="gallery-wrap">
-                    <img id="gallery-img" src="foto/default1.jpg" alt="Gallery Image" />
-                    <div id="img-caption">Foto 1</div>
-                    <div class="gallery-controls">
-                        <button id="btn-prev" class="btn btn-outline">← Previous</button>
-                        <span id="img-counter">1 / 4</span>
-                        <button id="btn-next" class="btn btn-primary">Next →</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. VIDEO YOUTUBE -->
-            <div class="media-section">
-                <div class="media-label">// 02. Video</div>
-                <h2>Video Komunitas</h2>
-                <div class="video-wrap">
-                    <iframe
-                        src="https://www.youtube.com/embed/N4PQ-vqNumc?si=fL_UwUMh3GXtShoW"
-                        title="Video Tech Community"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <p style="font-size:0.8rem; color: var(--text-muted); margin-top: 8px;">Video dokumentasi kegiatan Tech Community.</p>
-            </div>
-
-            <!-- 3. AUDIO PLAYLIST -->
-            <div class="media-section">
-                <div class="media-label">// 03. Audio</div>
-                <h2>Musik &amp; Audio</h2>
-
-                <div class="audio-card">
-                    <div class="custom-player">
-                        <!-- Info track -->
-                        <div class="player-top">
-                            <span id="audio-track-info">Track 1 / 7</span>
-                            <div class="volume-wrap">
-                                🔊
-                                <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="1">
-                            </div>
-                        </div>
-
-                        <!-- Progress bar -->
-                        <div class="player-progress">
-                            <span class="time-label" id="time-current">0:00</span>
-                            <div class="progress-bar-wrap" id="progress-wrap">
-                                <div class="progress-bar-fill" id="progress-fill"></div>
-                            </div>
-                            <span class="time-label" id="time-duration">0:00</span>
-                        </div>
-
-                        <!-- Controls: Play/Pause + Next -->
-                        <div class="player-controls">
-                            <button class="player-btn play-btn" id="btn-play-pause" title="Play / Pause">▶</button>
-                            <button class="player-btn" id="btn-next-track" title="Next Track">⏭</button>
-                        </div>
-                    </div>
-                    <audio id="community-audio">
-                        <source src="audio/default1.mp3" type="audio/mpeg">
-                    </audio>
-                </div>
-            </div>
-
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-90 z-40 lg:hidden opacity-0 invisible transition-all duration-300">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <button id="closeMobileMenu" class="text-white text-3xl">&times;</button>
+            <a href="index.html" class="text-white text-2xl font-bold hover:text-yellow-400">Home</a>
+            <a href="form.html" class="text-white text-2xl font-bold hover:text-yellow-400">Form</a>
+            <a href="gallery.html" class="text-yellow-400 text-2xl font-bold">Multimedia</a>
         </div>
+    </div>
+
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <!-- HeroTitle -->
+        <section class="text-center mb-24" id="multimedia">
+            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-widest mb-2 bg-gradient-to-r from-black to-gray-800 bg-clip-text text-transparent">
+                Multimedia
+            </h1>
+            <p class="text-sm font-medium text-gray-600">Konten visual dan audio dari Tech Community.</p>
+        </section>
+
+        <!-- 01. IMAGE GALLERY -->
+        <section class="mb-32 text-center" data-purpose="section-01-image-gallery">
+            <p class="font-bold text-sm mb-8 text-gray-700 uppercase tracking-wider">01. IMAGE GALLERY</p>
+            <div class="flex items-center justify-center gap-4 md:gap-12">
+                <!-- Decorative Text Left -->
+                <h2 class="hidden lg:block text-7xl font-black leading-none text-left w-64 bg-gradient-to-b from-gray-800 to-black bg-clip-text text-transparent">
+                    GALERI<br/>FOTO
+                </h2>
+                
+                <!-- Main Gallery Display -->
+                <div class="relative group">
+                    <div class="w-64 h-80 md:w-80 md:h-[450px] bg-gradient-to-br from-gray-400 to-gray-600 shadow-2xl flex items-center justify-center overflow-hidden rounded-2xl">
+                        <img id="galleryImage" src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=500&fit=crop" 
+                             alt="Gallery Image" class="w-full h-full object-cover gallery-image">
+                        <div id="imageOverlay" class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <span class="text-white font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Klik untuk fullscreen</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation Arrows -->
+                    <button id="prevImage" aria-label="Previous image" class="absolute -left-10 top-1/2 -translate-y-1/2 bg-black/90 text-white p-3 w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-black transition-all duration-300 opacity-80 hover:opacity-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="nextImage" aria-label="Next image" class="absolute -right-10 top-1/2 -translate-y-1/2 bg-black/90 text-white p-3 w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-black transition-all duration-300 opacity-80 hover:opacity-100">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Decorative Text Right -->
+                <h2 class="hidden lg:block text-7xl font-black leading-none text-left w-64 bg-gradient-to-b from-gray-800 to-black bg-clip-text text-transparent">
+                    GALERI<br/>FOTO
+                </h2>
+            </div>
+            
+            <!-- Image Counter -->
+            <div class="mt-8 flex justify-center items-center gap-4">
+                <span id="imageCounter" class="text-sm font-bold text-gray-600">1 / 5</span>
+            </div>
+        </section>
+
+        <!-- 02. VIDEO GALLERY - FULLY FIXED ✅ -->
+        <section class="mb-32 text-center" data-purpose="section-02-video">
+            <p class="font-bold text-sm mb-8 text-gray-700 uppercase tracking-wider">02. VIDEO GALLERY</p>
+            
+            <div class="flex items-center justify-center gap-4 md:gap-12 mb-12">
+                <!-- Decorative Text Left -->
+                <h2 class="hidden lg:block text-7xl font-black leading-none text-left w-64 bg-gradient-to-b from-gray-800 to-black bg-clip-text text-transparent">
+                    VIDEO<br/>GALLERY
+                </h2>
+                
+                <!-- Video Player Container -->
+                <div class="relative group">
+                    <div class="w-64 h-80 md:w-96 md:h-[540px] bg-gradient-to-br from-gray-400 to-gray-600 shadow-2xl overflow-hidden rounded-3xl relative">
+                        <iframe id="videoPlayer" 
+                                class="w-full h-full rounded-2xl shadow-2xl"
+                                src="https://www.youtube.com/embed/N4PQ-vqNumc?rel=0&modestbranding=1&playsinline=1&showinfo=0&fs=1&iv_load_policy=3&disablekb=0&autoplay=0&controls=1" 
+                                title="Tech Community Video 1"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen>
+                        </iframe>
+                        <!-- Play overlay -->
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-500 flex items-center justify-center">
+                            <svg class="w-16 h-16 text-white opacity-0 group-hover:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation Arrows -->
+                    <button id="prevVideo" aria-label="Previous video" class="absolute -left-10 top-1/2 -translate-y-1/2 bg-black/90 text-white p-3 w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-black transition-all duration-300 opacity-80 hover:opacity-100 hidden md:block">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button id="nextVideo" aria-label="Next video" class="absolute -right-10 top-1/2 -translate-y-1/2 bg-black/90 text-white p-3 w-12 h-12 flex items-center justify-center rounded-full shadow-lg hover:bg-black transition-all duration-300 opacity-80 hover:opacity-100 hidden md:block">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Decorative Text Right -->
+                <h2 class="hidden lg:block text-7xl font-black leading-none text-left w-64 bg-gradient-to-b from-gray-800 to-black bg-clip-text text-transparent">
+                    VIDEO<br/>GALLERY
+                </h2>
+            </div>
+            
+            <!-- Video Pagination -->
+            <div class="flex justify-center items-center gap-2">
+                <button id="prevVideoPag" aria-label="Previous video" class="w-12 h-10 bg-black text-white flex items-center justify-center text-sm font-bold rounded-lg shadow-lg hover:bg-gray-800 transition-all duration-300">&lt;</button>
+                <button class="w-12 h-10 bg-yellow-400 text-black flex items-center justify-center text-sm font-bold rounded-lg shadow-lg scale-105">1</button>
+                <button class="w-12 h-10 bg-black/70 text-white flex items-center justify-center text-sm font-bold rounded-lg shadow-lg">2</button>
+                <button class="w-12 h-10 bg-black/70 text-white flex items-center justify-center text-sm font-bold rounded-lg shadow-lg">3</button>
+                <button id="nextVideoPag" aria-label="Next video" class="w-12 h-10 bg-black text-white flex items-center justify-center text-sm font-bold rounded-lg shadow-lg hover:bg-gray-800 transition-all duration-300">&gt;</button>
+            </div>
+        </section>
+
+        <!-- 03. AUDIO SECTION -->
+        <section class="mb-32 flex flex-col items-center" data-purpose="section-03-audio">
+            <p class="font-bold text-sm mb-8 text-gray-700 uppercase tracking-wider">03. AUDIO</p>
+            
+            <!-- Custom Audio Player -->
+            <div class="w-full max-w-sm drip-container">
+                <div class="bg-gradient-to-b from-gray-700 to-gray-800 rounded-t-[40px] p-8 pb-12 shadow-2xl flex flex-col gap-6 relative overflow-hidden">
+                    <!-- Album Art / Visualizer -->
+                    <div class="w-full aspect-square bg-gradient-to-br from-black to-gray-900 rounded-3xl flex items-center justify-center relative overflow-hidden">
+                        <div class="visualizer relative">
+                            <div class="visualizer-bar" style="left: 10%; animation-delay: 0s;"></div>
+                            <div class="visualizer-bar" style="left: 20%; animation-delay: 0.2s;"></div>
+                            <div class="visualizer-bar" style="left: 30%; animation-delay: 0.4s;"></div>
+                            <div class="visualizer-bar" style="left: 40%; animation-delay: 0.6s;"></div>
+                            <div class="visualizer-bar" style="left: 50%; height: 60%; animation-delay: 0.8s;"></div>
+                            <div class="visualizer-bar" style="left: 60%; animation-delay: 1s;"></div>
+                            <div class="visualizer-bar" style="left: 70%; animation-delay: 1.2s;"></div>
+                            <div class="visualizer-bar" style="left: 80%; animation-delay: 1.4s;"></div>
+                            <div class="visualizer-bar" style="left: 90%; animation-delay: 1.6s;"></div>
+                        </div>
+                        <img id="albumArt" src="foto/Cover/1. just keep watching.jpg" 
+                             alt="Album Art" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay">
+                    </div>
+                    
+                    <!-- Track Info -->
+                    <div class="text-center">
+                        <div id="trackTitle" class="text-white text-lg font-bold tracking-wide">Just Keep Watching</div>
+                        <div id="trackArtist" class="text-gray-300 text-sm font-medium">Tate McRae</div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div class="px-2">
+                        <div class="w-full h-2 bg-gray-600 rounded-full relative group cursor-pointer" id="progressContainer">
+                            <div class="absolute left-0 top-0 h-full w-40% bg-gradient-to-r from-blue-400 to-blue-600 rounded-full transition-all duration-300" id="progressBar"></div>
+                            <div class="absolute left-[40%] top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg ring-2 ring-blue-400 transform scale-0 group-hover:scale-100 transition-transform duration-200" id="progressThumb"></div>
+                        </div>
+                        <div class="flex justify-between text-xs text-gray-400 mt-2" id="timeDisplay">
+                            <span id="currentTime">00:00</span>
+                            <span id="duration">04:23</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Main Controls -->
+                    <div class="flex items-center justify-center gap-12">
+                        <button id="prevTrack" class="text-white hover:scale-110 transition-transform duration-200 p-2" aria-label="Previous track">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"></path>
+                            </svg>
+                        </button>
+                        <button id="playPauseBtn" class="bg-white bg-opacity-20 backdrop-blur-sm p-4 rounded-full shadow-2xl hover:bg-opacity-30 transition-all duration-300 text-white" aria-label="Play/Pause">
+                            <svg id="playIcon" class="w-12 h-12 fill-current" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"></path>
+                            </svg>
+                            <svg id="pauseIcon" class="w-12 h-12 fill-current hidden" viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>
+                            </svg>
+                        </button>
+                        <button id="nextTrack" class="text-white hover:scale-110 transition-transform duration-200 p-2" aria-label="Next track">
+                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Volume Control -->
+                    <div class="flex items-center gap-4 px-2">
+                        <svg class="w-5 h-5 text-gray-400 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"></path>
+                        </svg>
+                        <div class="flex-grow h-2 bg-gray-600 rounded-full relative group cursor-pointer" id="volumeContainer">
+                            <div class="absolute left-0 top-0 h-full w-80% bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-300" id="volumeBar"></div>
+                            <div class="absolute left-[80%] top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg ring-2 ring-green-400 transform scale-0 group-hover:scale-100 transition-transform duration-200" id="volumeThumb"></div>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400 fill-current flex-shrink-0" viewBox="0 0 24 24">
+                            <path d="M14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Liquid Drip -->
+                <div class="liquid-drip"></div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
-        </div>
+    <!-- Footer -->
+    <footer class="text-center py-12 px-4 text-xs font-medium border-t border-gray-400 mt-20 bg-white/50">
+        <p>© 2026 Tech Community · Dibangun dengan HTML, CSS & JavaScript</p>
     </footer>
 
+    <!-- JavaScript -->
     <script src="Javascript/script-gallery.js"></script>
 </body>
 </html>

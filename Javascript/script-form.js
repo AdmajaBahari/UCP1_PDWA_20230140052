@@ -1,160 +1,153 @@
-// --- DATA STORE (simulasi database dengan array) ---
-const memberStore = {
-  members: [
-    { id: 1, nama: "Admaja Bahaei",    email: "admaja@mail.com",   bidang: "Web Development" },
-  ],
+// DOM Elements
+const form = document.getElementById('registration-form');
+const inputs = form.querySelectorAll('input[required]');
+const submitBtn = form.querySelector('.btn-primary');
+const resetBtn = form.querySelector('.btn-secondary');
 
-  add(member) {
-    const newMember = { id: this.members.length + 1, ...member };
-    this.members.push(newMember);
-    this._persist();
-    return newMember;
-  },
+// Real-time validation
+inputs.forEach(input => {
+    input.addEventListener('blur', validateField);
+    input.addEventListener('input', validateField);
+});
 
-  getAll() { return [...this.members]; },
-
-  _persist() {
-    try { sessionStorage.setItem("tc_members", JSON.stringify(this.members)); } catch (_) {}
-  },
-
-  _load() {
-    try {
-      const saved = sessionStorage.getItem("tc_members");
-      if (saved) this.members = JSON.parse(saved);
-    } catch (_) {}
-  },
-};
-
-memberStore._load();
-
-// =============================================
-// HALAMAN FORM — validasi & submit
-// =============================================
-function initForm() {
-  const form = document.getElementById("member-form");
-  if (!form) return;
-
-  const resultBox = document.getElementById("form-result");
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const nama   = document.getElementById("nama").value.trim();
-    const email  = document.getElementById("email").value.trim();
-    const bidang = document.getElementById("bidang").value;
-
-    const errors = validateForm({ nama, email, bidang });
-    if (errors.length > 0) {
-      showFormError(errors.join("\n"));
-      return;
+function validateField(e) {
+    const field = e.target;
+    const value = field.value.trim();
+    
+    // Reset previous states
+    field.classList.remove('valid', 'error');
+    
+    if (field.hasAttribute('required') && !value) {
+        field.classList.add('error');
+        return false;
     }
-
-    const newMember = memberStore.add({ nama, email, bidang });
-    showFormSuccess(newMember, resultBox);
-    form.reset();
-    clearFieldErrors();
-  });
-
-  attachRealTimeValidation();
-}
-
-function validateForm({ nama, email, bidang }) {
-  const errors = [];
-  if (!nama || nama.length < 3)  errors.push("Nama harus minimal 3 karakter.");
-  if (!isValidEmail(email))       errors.push("Format email tidak valid.");
-  if (!bidang)                    errors.push("Bidang minat harus dipilih.");
-  return errors;
+    
+    if (field.type === 'email' && value && !isValidEmail(value)) {
+        field.classList.add('error');
+        return false;
+    }
+    
+    field.classList.add('valid');
+    return true;
 }
 
 function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function showFormSuccess(member, resultBox) {
-  if (!resultBox) return;
-  resultBox.className = "result-box success";
-  resultBox.innerHTML = `
-    <strong>✅ Pendaftaran Berhasil!</strong>
-    <ul>
-      <li><b>ID Anggota</b> : #${member.id}</li>
-      <li><b>Nama</b>       : ${escapeHtml(member.nama)}</li>
-      <li><b>Email</b>      : ${escapeHtml(member.email)}</li>
-      <li><b>Bidang</b>     : ${escapeHtml(member.bidang)}</li>
-    </ul>
-    <p>Data kamu sudah tersimpan! <a href="./index.html">Lihat daftar anggota →</a></p>
-  `;
-  resultBox.style.display = "block";
-  resultBox.scrollIntoView({ behavior: "smooth" });
-}
+// Form submission
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Validate all required fields
+    let isValid = true;
+    inputs.forEach(input => {
+        if (!validateField({ target: input })) {
+            isValid = false;
+        }
+    });
+    
+    if (!isValid) {
+        showNotification('❌ Mohon lengkapi semua field dengan benar!', 'error');
+        return;
+    }
 
-function showFormError(message) {
-  alert("⚠️ " + message);
-}
+    // Show loading state
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '⏳ Sedang diproses...';
+    submitBtn.parentElement.classList.add('loading');
 
-function attachRealTimeValidation() {
-  const fields = ["nama", "email", "bidang"];
-  fields.forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener("blur",  () => validateField(id, el.value));
-    el.addEventListener("input", () => clearFieldError(id));
-  });
-}
-
-function validateField(id, value) {
-  let msg = "";
-  if (id === "nama"   && value.trim().length < 3) msg = "Minimal 3 karakter.";
-  if (id === "email"  && !isValidEmail(value.trim())) msg = "Format email tidak valid.";
-  if (id === "bidang" && !value) msg = "Pilih bidang minat.";
-  if (msg) setFieldError(id, msg);
-}
-
-function setFieldError(id, msg) {
-  const errEl = document.getElementById(`${id}-error`);
-  if (errEl) { errEl.textContent = msg; errEl.style.display = "block"; }
-  const field = document.getElementById(id);
-  if (field) field.classList.add("field-error");
-}
-
-function clearFieldError(id) {
-  const errEl = document.getElementById(`${id}-error`);
-  if (errEl) { errEl.textContent = ""; errEl.style.display = "none"; }
-  const field = document.getElementById(id);
-  if (field) field.classList.remove("field-error");
-}
-
-function clearFieldErrors() {
-  ["nama", "email", "bidang"].forEach(clearFieldError);
-}
-
-// =============================================
-// UTILITY
-// =============================================
-function escapeHtml(str) {
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-// =============================================
-// ROUTER — inisialisasi sesuai halaman aktif
-// =============================================
-document.addEventListener("DOMContentLoaded", () => {
-  const page = document.body.dataset.page;
-  if (page === "home")       renderMemberTable();
-  if (page === "form")       initForm();
-  if (page === "multimedia") initMultimedia();
-
-  highlightActiveNav();
+    try {
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        console.log('✅ Registration Data:', data);
+        showNotification('🎉 Pendaftaran berhasil! Kami akan hubungi Anda segera.', 'success');
+        form.reset();
+        inputs.forEach(input => input.classList.remove('valid', 'error'));
+        
+    } catch (error) {
+        console.error('Error:', error);
+        showNotification('❌ Terjadi kesalahan. Silakan coba lagi.', 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        submitBtn.parentElement.classList.remove('loading');
+    }
 });
 
-function highlightActiveNav() {
-  const links = document.querySelectorAll("nav a");
-  links.forEach(link => {
-    if (link.href === window.location.href) {
-      link.classList.add("active");
-    }
-  });
+// Reset functionality
+resetBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    form.reset();
+    inputs.forEach(input => {
+        input.classList.remove('valid', 'error');
+    });
+    showNotification('🔄 Form telah direset!', 'info');
+});
+
+// Notification system
+function showNotification(message, type = 'info') {
+    // Remove existing notifications
+    document.querySelectorAll('.notification').forEach(n => n.remove());
+    
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animate in
+    requestAnimationFrame(() => {
+        notification.classList.add('show');
+    });
+    
+    // Auto remove
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, 4000);
 }
+
+// Dark mode toggle (demo)
+document.querySelector('.dark-toggle').addEventListener('click', function() {
+    const knob = this.querySelector('.toggle-knob');
+    knob.style.transform = knob.style.transform === 'translateX(2.25rem)' ? 
+        'translateX(0.25rem)' : 'translateX(2.25rem)';
+    
+    document.body.classList.toggle('dark-mode');
+});
+
+// Smooth scrolling for internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Window controls interactions (decorative)
+document.querySelectorAll('.window-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // Add ripple effect or other visual feedback
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+    });
+});
