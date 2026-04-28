@@ -1,13 +1,12 @@
-
 // =============================================
 // HALAMAN MULTIMEDIA — galeri & audio playlist
 // =============================================
 const gallery = {
   images: [
-    { src: "foto/default1.png", alt: "Foto Komunitas 1" },
-    { src: "foto/default2.png", alt: "Foto Komunitas 2" },
-    { src: "foto/default3.png", alt: "Foto Komunitas 3" },
-    { src: "foto/default4.png", alt: "Foto Komunitas 4" },
+    { src: "foto/default1.jpg", alt: "Foto Komunitas 1" },
+    { src: "foto/default2.jpg", alt: "Foto Komunitas 2" },
+    { src: "foto/default3.jpg", alt: "Foto Komunitas 3" },
+    { src: "foto/default4.jpg", alt: "Foto Komunitas 4" },
   ],
   currentIndex: 0,
 
