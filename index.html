@@ -1,94 +1,133 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tech Community</title>
-    <link rel="icon" href="foto/logo/edited-photo.png" type="image/png" />
-    <link rel="stylesheet" href="/CSS/style-home.css" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tech Community</title>
+  <link rel="icon" href="foto/logo/edited-photo.png" type="image/png"/>
+  <link rel="stylesheet" href="CSS/style-home.css"/>
 </head>
 <body data-page="home">
 
-    <!-- HEADER / NAV  -->
-     <header>
-        <div class="container">
-            <div class="nav-inner">
-                <div class="logo">
-  <img src="foto/logo/edited-photo.png" alt="Tech Community Logo" style="height: 36px; width: auto;">
-</div> <span>Tech</span>Community</div>
-                <nav>
-                    <a href="./index.html">Home</a>
-                    <a href="./form.html">Form</a>
-                    <a href="./gallery.html">Multimedia</a>
-                </nav>
-            </div>
-        </div>
-     </header>
+<!-- ── HEADER ── -->
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="foto/logo/edited-photo.png" alt="logo"/>
+      <span>Tech.Community</span>
+    </a>
 
-     <main>
-        <div class="container">
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="form.html">Form</a>
+      <a href="gallery.html">Multimedia</a>
+    </nav>
 
-            <!-- HERO -->
-             <section class="hero">
-                <div class="hero-eyebrow">// Bergabung bersama kami</div>
-                <h1>Komunitas <span>Teknologi</span><br/>untuk Semua</h1>
-                <p>Website ini juga akan digunakan untuk mendata anggota
-baru serta menampilkan konten multimedia agar terlihat lebih menarik.
-                </p>
-                <div class="hero-actions">
-                    <a href="./form.html" class="btn btn-primary">Daftar Sekarang</a>
-                    <a href="./gallery.html" class="btn btn-outline">Lihat Multimedia</a>
-                </div>
-             </section>
+    <div class="header-right">
+      <div class="dark-toggle" id="darkToggle">
+        <div class="toggle-knob" id="darkToggleThumb"></div>
+      </div>
+      <button class="hamburger-btn" id="mobileMenuBtn" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-             <!-- STATS -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-number" id="member-count">5</div>
-                    <div class="stat-label">Anggota</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">5</div>
-                    <div class="stat-label">Bidang</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">2026</div>
-                    <div class="stat-label">Tahun Berdiri</div>
-                </div>
-            </div>
+<!-- ── HERO ── -->
+<section class="hero-section">
+  <div class="hero-inner">
 
-            <!-- TABEL ANGGOTA -->
-             <div class="section-header">
-                <h2>Daftar Anggota</h2>
+    <!-- Kiri: logo besar "tech." -->
+    <div class="hero-logo-big">tech.</div>
 
-                <a href="./form.html" class="btn btn-outline">Tambah Anggota</a>
-            </div>
+    <!-- Tengah: deskripsi + angka besar -->
+    <div class="hero-text-center">
+      <p class="hero-desc">
+        Website ini juga akan digunakan untuk mendata anggota baru
+        serta menampilkan konten multimedia agar terlihat lebih menarik
+      </p>
+      <div class="hero-number">001</div>
+    </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Minat</th>
-                            </tr>
-                            </thead>
-                            <tbody id="member-tbody">
-                                <!-- Diisi oleh JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
+    <!-- Spacer — gambar ironman posisi absolute -->
+    <div style="width:320px;"></div>
+  </div>
 
-                </div>
-            </main>
+  <!-- Gambar ironman kanan -->
+  <img src="foto/Assets-Home/home.png" alt="hero" class="hero-image"/>
 
-        <footer>
-            <div class="container">
-                <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
-            </div>
-        </footer>
+  <!-- Teks vertikal -->
+  <span class="hero-vertical-text">KOMUNITAS TECHNOLOGY</span>
+</section>
 
-        <script src="/Javascript/script-home.js"></script>
-    </body>
+<!-- ── HERO ACTION BUTTONS ── -->
+<div class="hero-actions">
+  <a href="form.html"    class="btn btn-primary">Daftar Sekarang</a>
+  <a href="gallery.html" class="btn btn-outline">Lihat Multimedia</a>
+</div>
+
+<!-- ── STATS ── -->
+<section class="stats-section">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Anggota</div>
+      <div class="stat-number" id="member-count">00</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Bidang</div>
+      <div class="stat-number">000</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Tahun</div>
+      <div class="stat-number">00</div>
+      <div class="stat-suffix">years</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DAFTAR ANGGOTA ── -->
+<section class="members-section">
+  <div class="members-inner">
+    <div class="section-title-row">
+      <h2>Daftar Anggota:</h2>
+    </div>
+
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>no</th>
+            <th>nama</th>
+            <th>email</th>
+            <th>minat</th>
+            <th>aksi</th>
+          </tr>
+        </thead>
+        <tbody id="member-tbody">
+          <!-- diisi app.js -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination + Tambah Anggota -->
+    <div class="pagination-row">
+      <div class="pagination">
+        <button class="page-btn" id="page-prev">&lt;</button>
+        <button class="page-btn active" data-page="1">1</button>
+        <button class="page-btn" data-page="2">2</button>
+        <span class="page-btn dots">...</span>
+        <button class="page-btn" id="page-next">&gt;</button>
+      </div>
+      <a href="form.html" class="btn-tambah">Tambah Anggota</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
+</footer>
+
+<script src="Javascript/app.js"></script>
+</body>
 </html>

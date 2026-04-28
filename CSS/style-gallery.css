@@ -1,93 +1,65 @@
-/* Custom fonts and base styles */
+/* ================================================
+   GALLERY PAGE — Sesuai desain foto
+   - Background abu-abu terang (#d4d4d4)
+   - Header hitam pill
+   - Image gallery: portrait card center
+   - Video: full width, pagination < 1 2 3 >
+   - Audio: iPhone player style (gray card, besar)
+================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
 body {
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #d1d5db;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #d4d4d4;
+  color: #111;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Audio player custom styles */
-.drip-container {
-    position: relative;
-    filter: drop-shadow(0 10px 8px rgba(0,0,0,0.2));
-}
-
-.liquid-drip {
-    position: absolute;
-    bottom: -40px;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #374151;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 30%, 85% 30%, 80% 80%, 75% 30%, 65% 30%, 60% 100%, 55% 30%, 45% 30%, 40% 70%, 35% 30%, 25% 30%, 20% 90%, 15% 30%, 0% 30%);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-}
-
-/* Gallery image transitions */
-.gallery-image {
-    transition: all 0.3s ease-in-out;
-    transform: scale(1);
-}
-
-.gallery-image:hover {
-    transform: scale(1.05);
-}
-
-/* Audio visualizer */
-.visualizer {
-    position: relative;
-    overflow: hidden;
-}
-
+/* ── Visualizer bars (audio) ── */
+.visualizer { position: relative; width: 100%; height: 100%; }
 .visualizer-bar {
-    position: absolute;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(to top, #10b981, #059669);
-    animation: pulse 2s infinite;
+  position: absolute;
+  bottom: 20%;
+  width: 3px;
+  height: 30%;
+  background: rgba(255,255,255,0.4);
+  border-radius: 2px;
+  animation: viz 1.2s ease-in-out infinite alternate;
+}
+@keyframes viz {
+  from { height: 20%; opacity: 0.3; }
+  to   { height: 70%; opacity: 0.8; }
 }
 
-@keyframes pulse {
-    0%, 100% { height: 20%; }
-    50% { height: 80%; }
+/* ── Liquid drip (audio card bottom) ── */
+.drip-container { position: relative; }
+.liquid-drip {
+  width: 60%;
+  height: 24px;
+  background: linear-gradient(to bottom, #555, #444);
+  border-radius: 0 0 40px 40px;
+  margin: 0 auto;
+  position: relative;
+}
+.liquid-drip::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px; height: 16px;
+  background: #444;
+  border-radius: 50%;
 }
 
-/* Dark mode */
-.dark body {
-    background-color: #000000;
-    color: white;
-}
+/* ── gallery-image transition ── */
+.gallery-image { transition: opacity 0.25s ease; }
 
-.dark .bg-gray-500 {
-    background-color: #4b5563;
-}
-
-.dark .bg-gradient-to-br {
-    background: linear-gradient(to bottom right, #4b5563, #374151) !important;
-}
-
-/* Mobile menu animations */
-#mobileMenu.opacity-100 {
-    opacity: 1 !important;
-    visibility: visible !important;
-}
-
-/* Header dark mode */
-.dark header {
-    background-color: #1f2937 !important;
-}
-
-/* Footer dark mode */
-.dark footer {
-    background-color: #1f2937 !important;
-    border-color: #4b5563 !important;
-}
-
-/* Section titles dark mode */
-.dark .text-gray-700 {
-    color: #d1d5db !important;
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
+/* Tailwind override untuk dark mode thumb */
+.dark .dark\:translate-x-full { transform: translateX(100%); }

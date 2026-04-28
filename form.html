@@ -1,132 +1,118 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Community</title>
-    <link rel="icon" href="foto/logo/edited-photo.png" type="image/png" />
-    <link rel="stylesheet" href="/CSS/style-form.css">
-    <style>
-        .form-card  { max-width: 560px; margin: 0 auto; }
-        .page-header { margin-bottom: 32px; }
-        .page-header h1 { font-size: 1.8rem; font-weight: 700; margin-bottom: 6px; }
-        .page-header p { color: var(--text-muted); }
-        .form-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
-        select option { background: var(--surface2); }
-    </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Pendaftaran - Tech Community</title>
+  <link rel="icon" href="foto/logo/edited-photo.png" type="image/png"/>
+  <link rel="stylesheet" href="CSS/style-form.css"/>
 </head>
 <body data-page="form">
 
-        <!-- Main Header -->
-    <header>
-        <div class="container">
-            <div class="nav-inner">
-                        <!-- Logo Section -->
-                <img src="foto/logo/edited-photo.png" alt="Tech Community Logo" style="height: 36px; width: auto;">
-                <span>Tech</span>Community</div>
-                <nav>
-                    <a href="./index.html">Home</a>
-                    <a href="./form.html">Form</a>
-                    <a href="./gallery.html">Multimedia</a>
-                </nav>
-            </div>
+<!-- ── HEADER ── -->
+<header>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">
+      <img src="foto/logo/edited-photo.png" alt="logo"/>
+      <span>Tech.Community</span>
+    </a>
+
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="form.html" class="active">Form</a>
+      <a href="gallery.html">Multimedia</a>
+    </nav>
+
+    <div class="header-right">
+      <div class="dark-toggle" id="darkToggle">
+        <div class="toggle-knob" id="darkToggleThumb"></div>
+      </div>
+      <button class="hamburger" id="mobileMenuBtn" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Back button -->
+<a href="index.html" class="back-btn">← Back Home</a>
+
+<!-- ── MAIN ── -->
+<main>
+  <div class="form-layout">
+
+    <!-- Kiri: judul -->
+    <div class="form-left">
+      <h1>Form<br/>Pendaftaran<br/>Anggota</h1>
+      <p>Isi form untuk bergabung dengan Tech Community</p>
+    </div>
+
+    <!-- Kanan: card macOS -->
+    <div class="form-right">
+      <div class="form-card">
+
+        <!-- macOS window dots -->
+        <div class="window-dots">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
         </div>
-    </header>
 
-    <!-- Center Navigation Pill -->
-        <nav class="nav-pill" data-purpose="main-nav">
-            <a href="#">Home</a>
-            <a href="#" class="nav-active">Form</a>
-            <a href="#">Multimedia</a>
-        </nav>
+        <form id="member-form" novalidate>
 
-    <!-- Right Side Controls -->
-        <div class="header-controls">
-            <!-- Dark Mode Toggle -->
-            <div class="dark-toggle">
-                <div class="toggle-knob"></div>
-            </div>
-            
-            <!-- Hamburger Menu -->
-            <button class="hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
+          <!-- Nama -->
+          <div class="form-group">
+            <label class="form-label" for="nama">Nama Lengkap :</label>
+            <input class="form-input" type="text" id="nama" name="nama"
+                   placeholder="" autocomplete="name"/>
+          </div>
+          <span class="field-error-message" id="nama-error"></span>
 
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="email">Email :</label>
+            <input class="form-input" type="email" id="email" name="email"
+                   placeholder="" autocomplete="email"/>
+          </div>
+          <span class="field-error-message" id="email-error"></span>
 
-        <!-- Main Content -->
-    <main>
-        <div class="container">
-            <div class="form-card">
-                
-                <div class="page-header">
-                    <a href="./index.html" style="font-size: 0.8rem; color: var(--text-muted);">← Back Home</a>
-                    <h1 style="margin-top: 12px;">Form Pendaftaran Anggota</h1>
-                    <p>Isi form di bawah untuk bergabung dengan Tech Community</p>
-                    </div>
+          <!-- Bidang -->
+          <div class="form-group">
+            <label class="form-label" for="bidang">Bidang Minat :</label>
+            <select class="form-select form-input" id="bidang" name="bidang">
+              <option value="">-- Pilih --</option>
+              <option value="Web Development">Web Development</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Machine Learning">Machine Learning</option>
+              <option value="Cybersecurity">Cybersecurity</option>
+              <option value="DevOps">DevOps</option>
+              <option value="Mobile Development">Mobile Development</option>
+              <option value="UI/UX Design">UI/UX Design</option>
+              <option value="Game Development">Game Development</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <span class="field-error-message" id="bidang-error"></span>
 
-                    <div class="card">
-                        <form id="member-form" novalidate>
-                            
+          <div class="form-spacer"></div>
 
-                            <!-- NAMA -->
-                             <div class="form-group">
-                                <label for="name">Nama Lengkap <span style="color: var(--danger);">:</span></label>
-                                <input type="text" id="name" name="name" placeholder="Contoh: Admaja Bahari" autocomplete="name" />
-                                <div class="field-error-message" id="name-error"></div>
-                    </div>
+          <!-- Tombol -->
+          <div class="form-actions">
+            <button type="submit" class="btn-daftar">Daftar</button>
+            <button type="reset"  class="btn-reset">Reset Form</button>
+          </div>
 
-                             <!-- EMAIL -->
-                            <div class="form-group">
-                                <label for="email">Alamat Email <span style="color:var(--danger)">:</span></label>
-                                <input type="email" id="email" name="email" placeholder="Contoh: admaja@techcommunity.ac.id" autocomplete="email" />
-                                <div class="field-error-message" id="email-error"></div>
-                            </div>
+        </form>
+      </div>
+    </div>
 
-                        <!-- BIDANG MINAT -->
-                        <div class="form-group">
-                            <label for="bidang">Bidang Minat <span style="color:var(--danger)">:</span></label>
-                            <select id="bidang" name="bidang">
-                                <option value="">-- pilih bidang --</option>
-                                <option value="Web Development">Web Development</option>
-                                <option value="Data Science">Data Science</option>
-                                <option value="Machine Learning">Machine Learning</option>
-                                <option value="Cybersecurity">Cybersecurity</option>
-                                <option value="DevOps">DevOps</option>
-                                <option value="Game Development">Game Development</option>
-                                <option value="Lainnya">Lainnya</option>
-                            </select>
-                            <div class="field-error-message" id="bidang-error"></div>
-                        </div>
- 
-                        <!-- Action -->
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Daftar</button>
-                            <button type="reset" class="btn btn-outline">Reset Form</button>
-                        </div>
- 
-                    </form>
+  </div>
+</main>
 
-                            <!-- Hasil submit tampilkan di sini -->
-                            <div id="form-result" class="result-box"></div>
+<footer>
+  <p>© 2026 Tech Community · Dibangun dengan HTML, CSS &amp; JavaScript</p>
+</footer>
 
-                        </div>
-
-                    </div>
-            </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer" data-purpose="footer">
-        <div class="footer-content">
-            <p>© 2026 Tech Community · Dibangun dengan ❤️ menggunakan HTML, CSS & JavaScript</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script src="script-form.js"></script>
+<script src="Javascript/app.js"></script>
 </body>
 </html>
