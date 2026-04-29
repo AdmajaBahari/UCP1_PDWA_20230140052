@@ -78,23 +78,41 @@ nav a.active, nav a[href="form.html"] { color: #fff; }
   gap: 10px;
 }
 
-.dark-toggle {
-  width: 56px; height: 30px;
-  background: #888;
+
+
+
+
+/* ── DARK MODE TOGGLE (form) ── */
+#darkToggle {
+  width: 52px;
+  height: 28px;
+  background: #555;
   border-radius: 50px;
   padding: 4px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   cursor: pointer;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  transition: background 0.3s;
+  appearance: none;
+  -webkit-appearance: none;
 }
-.toggle-knob {
-  width: 22px; height: 22px;
-  background: #fff;
+#darkToggleThumb {
+  width: 20px;
+  height: 20px;
+  background: #ccc;
   border-radius: 50%;
-  transition: transform 0.3s;
-  transform: translateX(24px); /* default: kanan (dark-ish) */
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, background 0.3s;
+  transform: translateX(0);
 }
+body.dark-mode #darkToggle      { background: #4ade80; }
+body.dark-mode #darkToggleThumb { transform: translateX(24px); background: #fff; }
 
 .hamburger {
   width: 40px; height: 40px;

@@ -16,25 +16,31 @@
       <img src="foto/logo/edited-photo.png" alt="logo"/>
       <span>Tech.Community</span>
     </a>
-
     <nav>
       <a href="index.html">Home</a>
-      <a href="form.html" class="active">Form</a>
+      <a href="form.html">Form</a>
       <a href="gallery.html">Multimedia</a>
     </nav>
-
     <div class="header-right">
-      <div class="dark-toggle" id="darkToggle">
-        <div class="toggle-knob" id="darkToggleThumb"></div>
-      </div>
-      <button class="hamburger" id="mobileMenuBtn" aria-label="menu">
+      <button id="darkToggle" style="width:52px;height:28px;background:#555;border-radius:50px;padding:4px;display:inline-flex;align-items:center;border:none;cursor:pointer;flex-shrink:0;box-sizing:border-box;transition:background 0.3s;outline:none;">
+        <div id="darkToggleThumb" style="width:20px;height:20px;background:#ccc;border-radius:50%;flex-shrink:0;pointer-events:none;box-shadow:0 1px 4px rgba(0,0,0,0.5);transition:transform 0.3s ease,background 0.3s;transform:translateX(0);"></div>
+      </button>
+      <button class="hamburger" id="mobileMenuBtn" aria-label="Buka menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- Back button -->
+<!-- ── MOBILE MENU OVERLAY ── -->
+<div id="mobileMenu">
+  <button id="closeMobileMenu" style="position:absolute;top:24px;right:28px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;line-height:1;">&times;</button>
+  <a href="index.html">Home</a>
+  <a href="form.html">Form</a>
+  <a href="gallery.html">Multimedia</a>
+</div>
+
+<!-- Back -->
 <a href="index.html" class="back-btn">← Back Home</a>
 
 <!-- ── MAIN ── -->
@@ -51,7 +57,7 @@
     <div class="form-right">
       <div class="form-card">
 
-        <!-- macOS window dots -->
+        <!-- macOS dots -->
         <div class="window-dots">
           <span class="dot dot-red"></span>
           <span class="dot dot-yellow"></span>
@@ -60,26 +66,21 @@
 
         <form id="member-form" novalidate>
 
-          <!-- Nama -->
           <div class="form-group">
             <label class="form-label" for="nama">Nama Lengkap :</label>
-            <input class="form-input" type="text" id="nama" name="nama"
-                   placeholder="" autocomplete="name"/>
+            <input class="form-input" type="text" id="nama" name="nama" autocomplete="name"/>
           </div>
           <span class="field-error-message" id="nama-error"></span>
 
-          <!-- Email -->
           <div class="form-group">
             <label class="form-label" for="email">Email :</label>
-            <input class="form-input" type="email" id="email" name="email"
-                   placeholder="" autocomplete="email"/>
+            <input class="form-input" type="email" id="email" name="email" autocomplete="email"/>
           </div>
           <span class="field-error-message" id="email-error"></span>
 
-          <!-- Bidang -->
           <div class="form-group">
             <label class="form-label" for="bidang">Bidang Minat :</label>
-            <select class="form-select form-input" id="bidang" name="bidang">
+            <select class="form-input form-select" id="bidang" name="bidang">
               <option value="">-- Pilih --</option>
               <option value="Web Development">Web Development</option>
               <option value="Data Science">Data Science</option>
@@ -96,7 +97,6 @@
 
           <div class="form-spacer"></div>
 
-          <!-- Tombol -->
           <div class="form-actions">
             <button type="submit" class="btn-daftar">Daftar</button>
             <button type="reset"  class="btn-reset">Reset Form</button>
